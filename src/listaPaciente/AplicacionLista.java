@@ -15,10 +15,10 @@ public class AplicacionLista {
         Paciente paciente3 = new Paciente("Eva", "Problemas digestivos");
         Paciente paciente4 = new Paciente("Ernesto", "Problemas cardiovasculares");
         ListaOrdinal pacientes = new ListaOrdinal();
-        pacientes.insertar(1, paciente1);
-        pacientes.insertar(2, paciente2);
-        pacientes.insertar(3, paciente3);
-        pacientes.insertar(4, paciente4);
+        pacientes.insertar(paciente1,1);
+        pacientes.insertar(paciente2,2);
+        pacientes.insertar(paciente3, 3);
+        pacientes.insertar(paciente4, 4);
         paciente2.darAlta();
         paciente3.darAlta();
         System.out.println("PACIENTES DEL HOSPITAL: ");
@@ -27,8 +27,8 @@ public class AplicacionLista {
         pacientes.borrarAltas();
         ver(pacientes);
         System.out.println("-------------------------");
-        pacientes.insertar(2,paciente2);
-        pacientes.insertar(3,paciente3);
+        pacientes.insertar(paciente2,2);
+        pacientes.insertar(paciente3,3);
         verAltas(pacientes);
         ListaOrdinal pacientesMareados = pacientesSintoma(pacientes, "mareo");
         System.out.println("PACIENTES CON MAREO: ");
@@ -53,7 +53,7 @@ public class AplicacionLista {
         while (it.hasNext()){
             Paciente paciente = it.next();
             if (paciente.getSintomas().contains(sintoma)){
-                resultado.insertar(orden, paciente);
+                resultado.insertar(paciente,orden);
                 orden++;
             }
         }

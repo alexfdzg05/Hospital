@@ -25,8 +25,8 @@ class ListaOrdinal {
 
     /** Inserta el dato en la última posición de la lista
      */
-    public void insertar(int dato, Paciente paciente) {
-        Nodo nuevo = new Nodo(dato, paciente, null);
+    public void insertar(Paciente paciente) {
+        Nodo nuevo = new Nodo( paciente, null);
         if (this.estaVacia()){
             inicio = nuevo;
         } else {
@@ -39,23 +39,23 @@ class ListaOrdinal {
     /** Inserta el dato en la posición indicada de la lista,
      *  si es posible.
      */
-    public void insertar(int dato, Paciente paciente, int posicion) {
+    public void insertar(Paciente paciente, int posicion) {
         Nodo nuevo, anterior;
         if ((posicion > numElementos) || (posicion < 0)) {
-            System.out.println("No es posible la inserción del " + dato);
+            System.out.println("No es posible la inserción del " + paciente.getNombre());
         } else {
             if (posicion == numElementos) {
-                this.insertar(dato,paciente);
+                this.insertar(paciente);
             } else {
                 if (posicion == 0) {   // Insertar al principio
-                    nuevo = new Nodo(dato, paciente, inicio);
+                    nuevo = new Nodo(paciente, inicio);
                     inicio = nuevo;
                 } else {  // Buscar posición de inserción.
                     anterior = inicio;
                     for (int i = 0; i < posicion - 1; i++) {
                         anterior = anterior.getSiguiente();
                     }
-                    nuevo = new Nodo(dato, paciente, anterior.getSiguiente());
+                    nuevo = new Nodo(paciente, anterior.getSiguiente());
                     anterior.setSiguiente(nuevo);
                 }
                 numElementos++;

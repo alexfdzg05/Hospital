@@ -14,7 +14,7 @@ class Nodo {
     private Paciente paciente;
     private Nodo siguiente;
 
-    public Nodo(int dato, Paciente paciente, Nodo siguiente) {
+    public Nodo(Paciente paciente, Nodo siguiente) {
         this.siguiente = siguiente;
         this.paciente = paciente;
     }
