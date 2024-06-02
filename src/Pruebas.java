@@ -1,4 +1,7 @@
 import java.util.Scanner;
+
+import colaPaciente.ColaPrioridades;
+import general.Doctor.Especializacion;
 import general.Paciente.Paciente;
 import general.Doctor.Doctor;
 
@@ -25,10 +28,46 @@ public class Pruebas {
     public static void main(String[] args) {
         Scanner teclado = new Scanner(System.in);
         int opcion = menu(teclado);
+        ColaPrioridades analisis = new ColaPrioridades();
+        ColaPrioridades cardiologia = new ColaPrioridades();
+        ColaPrioridades cirugia = new ColaPrioridades();
+        ColaPrioridades tramuatologia = new ColaPrioridades();
+        ColaPrioridades radiologia = new ColaPrioridades();
+        ColaPrioridades rehabilitacion = new ColaPrioridades();
+        ColaPrioridades neurologia = new ColaPrioridades();
+        ColaPrioridades pediatria = new ColaPrioridades();
+        ColaPrioridades[] cola = new ColaPrioridades[Especializacion.values().length];
         switch (opcion){
             case 1:
                 Paciente paciente = introducirDatos(teclado);
-
+                boolean continuarDiagnostico = false;
+                do {
+                    if (paciente.getSintomas().toLowerCase().contains("corazón") ||
+                            paciente.getSintomas().toLowerCase().contains("pecho")) {
+                        cardiologia.encolar(paciente);
+                    } else if (paciente.getSintomas().toLowerCase().contains("cirugía") ||
+                            paciente.getSintomas().toLowerCase().contains("operación")) {
+                        cirugia.encolar(paciente);
+                    } else if (paciente.getSintomas().toLowerCase().contains("rehabilitación") ||
+                            paciente.getSintomas().toLowerCase().contains("masaje")) {
+                        rehabilitacion.encolar(paciente);
+                    } else if (paciente.getSintomas().toLowerCase().contains("rotura") ||
+                            paciente.getSintomas().toLowerCase().contains("fisura") ||
+                            paciente.getSintomas().toLowerCase().contains("esguince")) {
+                        radiologia.encolar(paciente);
+                    } else if (paciente.getSintomas().toLowerCase().contains("hictus") ||
+                            paciente.getSintomas().toLowerCase().contains("cerebro")) {
+                        neurologia.encolar(paciente);
+                    } else if (paciente.getSintomas().toLowerCase().contains("niñ")) { //niñ detectará niño o niña
+                        pediatria.encolar(paciente);
+                    } else if (paciente.getSintomas().toLowerCase().contains("golpe")) {
+                        tramuatologia.encolar(paciente);
+                    } else {
+                        analisis.encolar(paciente);
+                        //Faltaría atender al paciente --> Hay que considerar el caso en el que haya un mal estudio
+                        continuarDiagnostico = true;
+                    }
+                }while (continuarDiagnostico);
                 break;
             case 2:
 
@@ -48,5 +87,29 @@ public class Pruebas {
         System.out.println("Defina sus sintomas: ");
         String sintomas = teclado.nextLine();
         return new Paciente(nombre,sintomas);
+    }
+    public void encolarPaciente(ColaPrioridades[] cola,Scanner teclado){
+        Paciente paciente = introducirDatos(teclado);
+        if (paciente.getSintomas().toLowerCase().contains("corazón") ||
+                paciente.getSintomas().toLowerCase().contains("pecho")){
+            cola[1].encolar(paciente);
+        } else if (paciente.getSintomas().toLowerCase().contains("cirugía") ||
+                paciente.getSintomas().toLowerCase().contains("operación")) {
+            cirugia.encolar(paciente);
+        } else if (paciente.getSintomas().toLowerCase().contains("rehabilitación") ||
+                paciente.getSintomas().toLowerCase().contains("masaje")){
+            rehabilitacion.encolar(paciente);
+        } else if (paciente.getSintomas().toLowerCase().contains("rotura") ||
+                paciente.getSintomas().toLowerCase().contains("fisura") ||
+                paciente.getSintomas().toLowerCase().contains("esguince")){
+            radiologia.encolar(paciente);
+        } else if (paciente.getSintomas().toLowerCase().contains("hictus") ||
+                paciente.getSintomas().toLowerCase().contains("cerebro")) {
+            neurologia.encolar(paciente);
+        } else if (paciente.getSintomas().toLowerCase().contains("niñ")){ //niñ detectará niño o niña
+            pediatria.encolar(paciente);
+        } else {
+            analisis.encolar(paciente);
+        }
     }
 }
