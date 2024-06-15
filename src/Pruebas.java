@@ -4,6 +4,7 @@ import colaPaciente.ColaPrioridades;
 import general.Doctor.Especializacion;
 import general.Paciente.Paciente;
 import general.Doctor.Doctor;
+import general.Paciente.Urgencia;
 
 
 public class Pruebas {
@@ -86,7 +87,22 @@ public class Pruebas {
         String nombre = teclado.nextLine();
         System.out.println("Defina sus sintomas: ");
         String sintomas = teclado.nextLine();
-        return new Paciente(nombre,sintomas);
+        int dolor = 0;
+        do {
+            System.out.println("Intensidad del dolor(1-5): " +
+                    "\n 1) Urgencia" +
+                    "\n 2) Dolor Alto" +
+                    "\n 3) Dolor intermedio" +
+                    "\n 4) Dolor Leve" +
+                    "\n 5) Molestia");
+            System.out.print("Seleccione opción: ");
+            dolor = teclado.nextInt();
+            if (dolor < 0 || dolor > 5){
+                System.out.println("Seleccione un valor del 1 al 5");
+            }
+        }while (dolor < 0 || dolor > 5);
+
+        return new Paciente(nombre,sintomas,dolor);
     }
     public void encolarPaciente(ColaPrioridades[] cola,Scanner teclado){
         Paciente paciente = introducirDatos(teclado);
